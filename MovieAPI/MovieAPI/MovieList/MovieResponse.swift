@@ -8,13 +8,13 @@
 import Foundation
 
 // MARK: - Dates
-struct Dates: Decodable {
+struct Dates: Codable {
     let maximum: String
     let minimum: String
 }
 
 // MARK: - MovieResponse
-struct MovieResponse: Decodable {
+struct MovieResponse: Codable {
     let dates: Dates
     let page: Int
     var results: [Movie]
@@ -29,7 +29,7 @@ struct MovieResponse: Decodable {
 }
 
 // MARK: - Movie
-struct Movie: Decodable, Hashable {
+struct Movie: Codable, Hashable {
     let adult: Bool
     let backdropPath: String
     let genreIDs: [Int]

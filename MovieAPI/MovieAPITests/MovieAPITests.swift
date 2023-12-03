@@ -8,29 +8,57 @@
 import XCTest
 @testable import MovieAPI
 
-final class MovieAPITests: XCTestCase {
+class NetworkServiceTests: XCTestCase {
+    var networkService: NetworkService!
+    let apiURL = URL(string: "https://jsonplaceholder.typicode.com/posts/42")!
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let urlSession = URLSession.init(configuration: configuration)
+        networkService = NetworkService(urlSession: urlSession)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        networkService = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
+    func testGetMovieList_whenSuccessfulRequest_resultShouldBeEqualToMock() async throws {
+        let jsonData = try JSONEncoder().encode(mockMovieResponse)
+        MockURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(url: self.apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (response, jsonData)
+        }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        let result = try await networkService.getMovieList()
+
+        XCTAssertEqual(result, mockMovieResponse.results, "result should be equail to mockMovieResponse")
+      }
+
+    func testGetMovieList_whenDataIsNil_shouldReturnError() async {
+        MockURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(url: self.apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (response, nil)
+        }
+
+        do {
+            let result = try await networkService.getMovieList()
+            XCTFail("Should fail")
+        } catch {
+            XCTAssertEqual(error as! NetworkErrors, NetworkErrors.networkError)
         }
     }
 
+    func testDownloadimage_whenSuccessfulRequest_shouldReturnData() async throws {
+        let data = "teste"
+        let jsonData = try JSONEncoder().encode(data)
+        MockURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(url: self.apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (response, jsonData)
+        }
+
+        let result = try await networkService.downloadImage(moviePath: data)
+
+        XCTAssertEqual(result, jsonData, "Result should be equal to jsonData")
+    }
 }
