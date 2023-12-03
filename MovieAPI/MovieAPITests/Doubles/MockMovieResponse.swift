@@ -23,7 +23,7 @@ let mockMovie = Movie(
     video: false,
     voteAverage: 7.226,
     voteCount: 246,
-    imageData: nil
+    imageData: Data()
 )
 
 let mockMovieResponse = MovieResponse(

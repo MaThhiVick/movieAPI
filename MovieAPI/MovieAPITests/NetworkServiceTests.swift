@@ -42,7 +42,7 @@ class NetworkServiceTests: XCTestCase {
         }
 
         do {
-            let result = try await networkService.getMovieList()
+            _ = try await networkService.getMovieList()
             XCTFail("Should fail")
         } catch {
             XCTAssertEqual(error as! NetworkErrors, NetworkErrors.networkError)

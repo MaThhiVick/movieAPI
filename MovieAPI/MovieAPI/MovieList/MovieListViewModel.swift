@@ -8,8 +8,12 @@
 import Foundation
 
 class MovieListViewModel {
-    let networkService: NetworkRequest = NetworkService()
-    
+    let networkService: NetworkRequest
+
+    init(networkService: NetworkRequest = NetworkService()) {
+        self.networkService = networkService
+    }
+
     func getMovieList() async throws -> [Movie] {
         let result = try await networkService.getMovieList()
         return await insertImageData(movieList: result)
