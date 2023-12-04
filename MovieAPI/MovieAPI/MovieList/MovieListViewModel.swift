@@ -30,4 +30,12 @@ class MovieListViewModel {
         }
         return movieList
     }
+
+    func getMovieDetail(movieId: Int) async -> MovieDetail? {
+        do {
+           return try await networkService.getMovieDetail(movieId: movieId)
+        } catch {
+            return nil
+        }
+    }
 }

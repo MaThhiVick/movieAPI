@@ -10,6 +10,7 @@ import Foundation
 protocol NetworkRequest {
     func getMovieList() async throws -> [Movie]
     func downloadImage(moviePath: String) async throws -> Data
+    func getMovieDetail(movieId: Int) async throws -> MovieDetail
 }
 
 final class NetworkService: NetworkRequest {
@@ -44,7 +45,30 @@ final class NetworkService: NetworkRequest {
         
         return result
     }
-    
+
+    func getMovieDetail(movieId: Int) async throws -> MovieDetail {
+        var result: MovieDetail
+        let baseURL = URL(string: "https://api.themoviedb.org/3/movie/\(movieId)?language=en-US")!
+
+        let headers = [
+            "accept": "application/json",
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNGI4ODk2ODBkODI1ZmI2MGZlYmFjYTk1NjgxYTkxZCIsInN1YiI6IjY1NmFkYWRhZmNhZGI0MDBhZGQzNjlhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.d-OSE-4XS7pdA33Xi7VdJzX_NiP2rqh-e8tFITQNYhA"
+        ]
+
+        var request = URLRequest(url: baseURL)
+        request.httpMethod = httpMethod
+        request.allHTTPHeaderFields = headers
+
+        do {
+            let (data, _) = try await urlSession.data(for: request)
+            result = try JSONDecoder().decode(MovieDetail.self, from: data)
+        } catch {
+            throw NetworkErrors.networkError
+        }
+
+        return result
+    }
+
     func downloadImage(moviePath: String) async throws -> Data {
         let imageUrl = imageBaseURL.appendingPathComponent(moviePath)
         var request = URLRequest(url: imageUrl)
