@@ -20,29 +20,34 @@ struct MovieListView: View {
     var body: some View {
         NavigationView {
             VStack {
+                // virar outro componente view builder
                 ScrollView {
                     TabView(selection: $index) {
                         ForEach(movieList, id: \.self) { movie in
-                            MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .big)
+                            NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+                                MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .big)
+                            }
                         }
                     }
                     .frame(height: frameHeight)
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 
+                    // virar um componente view builder
                     Carousel(items: $movieList, title: "Top Rated") { movie in
                         MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
                     }
-                    .padding(.top, 36)
+                    .padding(.top, 32)
 
                     Carousel(items: $movieList, title: "Popular") { movie in
                         MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
                     }
-                    .padding(.top, 36)
+                    .padding(.top, 32)
                 }
             }
             .navigationTitle("Up coming")
         }
         .onAppear(perform: {
+            // passar para a view model
             Task {
                 do {
                     movieList = try await viewModel.getMovieList()
