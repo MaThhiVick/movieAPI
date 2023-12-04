@@ -26,7 +26,7 @@ let mockMovie = Movie(
     imageData: Data()
 )
 
-let mockMovieResponse = MovieResponse(
+let mockMovieResponse = MovieResponseModel(
     dates: Dates(maximum: "2023-12-27", minimum: "2023-12-06"),
     page: 1,
     results: [mockMovie],

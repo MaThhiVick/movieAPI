@@ -20,42 +20,46 @@ struct MovieListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // virar outro componente view builder
                 ScrollView {
-                    TabView(selection: $index) {
-                        ForEach(movieList, id: \.self) { movie in
-                            NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
-                                MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .big)
-                            }
-                        }
-                    }
-                    .frame(height: frameHeight)
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-
-                    // virar um componente view builder
-                    Carousel(items: $movieList, title: "Top Rated") { movie in
-                        MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
-                    }
-                    .padding(.top, 32)
-
-                    Carousel(items: $movieList, title: "Popular") { movie in
-                        MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
-                    }
-                    .padding(.top, 32)
+                    upcomingMovieSection()
+                    carouselSection()
                 }
             }
             .navigationTitle("Up coming")
         }
         .onAppear(perform: {
-            // passar para a view model
             Task {
-                do {
-                    movieList = try await viewModel.getMovieList()
-                } catch {
-                    print(error)
+                if let result: MovieResponseModel = await viewModel.getMovie(.list) {
+                    movieList = result.results
                 }
             }
         })
+    }
+
+    @ViewBuilder
+    func upcomingMovieSection() -> some View {
+        TabView(selection: $index) {
+            ForEach(movieList, id: \.self) { movie in
+                NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+                    MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .big)
+                }
+            }
+        }
+        .frame(height: frameHeight)
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+    }
+
+    @ViewBuilder
+    func carouselSection() -> some View {
+        Carousel(items: $movieList, title: "Top Rated") { movie in
+            MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
+        }
+        .padding(.top, 32)
+
+        Carousel(items: $movieList, title: "Popular") { movie in
+            MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
+        }
+        .padding(.top, 32)
     }
 }
 

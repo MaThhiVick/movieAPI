@@ -14,7 +14,7 @@ struct Dates: Codable {
 }
 
 // MARK: - MovieResponse
-struct MovieResponse: Codable {
+struct MovieResponseModel: Codable {
     let dates: Dates
     let page: Int
     var results: [Movie]

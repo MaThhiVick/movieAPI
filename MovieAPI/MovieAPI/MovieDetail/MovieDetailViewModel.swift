@@ -6,17 +6,22 @@
 //
 
 import Foundation
+import NetworkService
 
 class MovieDetailViewModel {
-    let networkService: NetworkRequest
+    let networkService: NetworkRequestUseCase
 
-    init(networkService: NetworkRequest = NetworkService()) {
+    init(networkService: NetworkRequestUseCase = NetworkUseCase()) {
         self.networkService = networkService
     }
 
-    func getMovieDetail(movieId: Int) async -> MovieDetail? {
+    func getMovieDetail(from movieId: Int) async -> MovieDetailModel? {
+        guard let data = await networkService.request(urlMovie: .detail(movieId)) else {
+            return nil
+        }
+
         do {
-           return try await networkService.getMovieDetail(movieId: movieId)
+           return try JSONDecoder().decode(MovieDetailModel.self, from: data)
         } catch {
             return nil
         }

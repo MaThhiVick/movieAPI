@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MovieDetail: Codable {
+struct MovieDetailModel: Codable {
     let adult: Bool
     let backdropPath: String?
     let belongsToCollection: BelongsToCollection?
