@@ -9,7 +9,7 @@ import Foundation
 import NetworkService
 
 protocol NetworkRequestUseCase {
-    func request(urlMovie: URLMovies) async -> Data?
+    func request(urlMovie: URLMoviesType) async -> Data?
 }
 
 class NetworkUseCase: NetworkRequestUseCase {
@@ -21,7 +21,7 @@ class NetworkUseCase: NetworkRequestUseCase {
         self.networkService = NetworkService(headers: urlProvider.getNetworkHeaders())
     }
 
-    func request(urlMovie: URLMovies) async -> Data? {
+    func request(urlMovie: URLMoviesType) async -> Data? {
         var data: Data?
         do {
             guard let url = urlProvider.getURLMovie(from: urlMovie) else {

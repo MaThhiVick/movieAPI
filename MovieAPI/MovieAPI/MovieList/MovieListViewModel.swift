@@ -14,7 +14,7 @@ class MovieListViewModel: ObservableObject {
         self.networkService = networkService
     }
 
-    func getMovie<T: Decodable>(_ urlMovie: URLMovies) async -> T? {
+    func getMovie<T: Decodable>(_ urlMovie: URLMoviesType) async -> T? {
         guard let data = await networkService.request(urlMovie: urlMovie) else {
             return nil
         }

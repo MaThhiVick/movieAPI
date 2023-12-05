@@ -5,10 +5,10 @@
 //  Created by Matheus Vicente on 04/12/23.
 //
 
-enum URLMovies {
+enum URLMoviesType {
     case detail(Int)
     case image(String)
-    case list
+    case list(MovieListPath)
 
     var stringName: String {
         switch self {
@@ -16,8 +16,14 @@ enum URLMovies {
             "movieDetail"
         case .image(_):
             "movieImage"
-        case .list:
+        default:
             "movieList"
         }
     }
+}
+
+enum MovieListPath: String {
+    case upcoming
+    case topRated = "top_rated"
+    case popular
 }

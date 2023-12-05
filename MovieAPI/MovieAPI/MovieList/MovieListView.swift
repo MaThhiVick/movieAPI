@@ -9,7 +9,9 @@ import SwiftUI
 
 struct MovieListView: View {
     let viewModel: MovieListViewModel
-    @State var movieList = [Movie]()
+    @State var upcomingList = [Movie]()
+    @State var topRatedList = [Movie]()
+    @State var popularList = [Movie]()
     @State private var index = 0
     private let frameHeight: CGFloat = 500
 
@@ -29,9 +31,16 @@ struct MovieListView: View {
         }
         .onAppear(perform: {
             Task {
-                if let result: MovieResponseModel = await viewModel.getMovie(.list) {
-                    movieList = result.results
+                if let result: MovieResponseModel = await viewModel.getMovie(.list(.upcoming)) {
+                    upcomingList = result.results
                 }
+                if let resultt: MovieResponseModel = await viewModel.getMovie(.list(.popular)) {
+                    popularList = resultt.results
+                }
+                if let resulttt: MovieResponseModel = await viewModel.getMovie(.list(.topRated)) {
+                    topRatedList = resulttt.results
+                }
+
             }
         })
     }
@@ -39,7 +48,7 @@ struct MovieListView: View {
     @ViewBuilder
     func upcomingMovieSection() -> some View {
         TabView(selection: $index) {
-            ForEach(movieList, id: \.self) { movie in
+            ForEach(upcomingList, id: \.self) { movie in
                 NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
                     MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .big)
                 }
@@ -51,12 +60,12 @@ struct MovieListView: View {
 
     @ViewBuilder
     func carouselSection() -> some View {
-        Carousel(items: $movieList, title: "Top Rated") { movie in
+        Carousel(items: $topRatedList, title: "Top Rated") { movie in
             MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
         }
         .padding(.top, 32)
 
-        Carousel(items: $movieList, title: "Popular") { movie in
+        Carousel(items: $popularList, title: "Popular") { movie in
             MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
         }
         .padding(.top, 32)

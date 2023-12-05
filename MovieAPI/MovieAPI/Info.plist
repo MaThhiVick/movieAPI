@@ -9,7 +9,7 @@
 		<key>movieImage</key>
 		<string>http://image.tmdb.org/t/p/w500/</string>
 		<key>movieList</key>
-		<string>https://api.themoviedb.org/3/movie/upcoming?language=en-US&amp;page=1</string>
+		<string>https://api.themoviedb.org/3/movie/TYPE?language=en-US&amp;page=1</string>
 	</dict>
 	<key>MovieHeader</key>
 	<dict>

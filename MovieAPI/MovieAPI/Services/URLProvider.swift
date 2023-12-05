@@ -8,7 +8,7 @@
 import Foundation
 
 protocol URLProvider {
-    func getURLMovie(from urlMovie: URLMovies) -> URL?
+    func getURLMovie(from urlType: URLMoviesType) -> URL?
     func getNetworkHeaders() -> [String: String]
 }
 
@@ -20,18 +20,29 @@ class DefaultURLProvider: URLProvider {
         return header
     }
 
-    func getURLMovie(from urlMovie: URLMovies) -> URL? {
-        if let defaultUrl = getDefaultURL(fromMovie: urlMovie) {
-            switch urlMovie {
+    func getURLMovie(from urlType: URLMoviesType) -> URL? {
+        if let defaultUrl = getDefaultURL(fromMovie: urlType) {
+            switch urlType {
             case .detail(let id):
                 return insert(movieId: id, to: defaultUrl)
             case .image(let path):
                 return defaultUrl.appendingPathComponent(path)
-            default:
-                return defaultUrl
+            case .list(let path):
+                return defineMovieList(from: path, to: defaultUrl)
             }
         }
         return nil
+    }
+
+    private func defineMovieList(from path: MovieListPath, to url: URL) -> URL? {
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            return nil
+        }
+
+        let newPath = url.path.replacingOccurrences(of: "TYPE", with: "\(path.rawValue)")
+        components.path = newPath
+
+        return components.url
     }
 
     private func insert(movieId: Int, to url: URL) -> URL? {
@@ -45,13 +56,13 @@ class DefaultURLProvider: URLProvider {
         return components.url
     }
 
-    private func getDefaultURL(fromMovie urlMovie: URLMovies) -> URL? {
+    private func getDefaultURL(fromMovie urlType: URLMoviesType) -> URL? {
         guard let urlBundle = Bundle.main.object(forInfoDictionaryKey: "URLMovies") as? Dictionary<String, String> else {
             return nil
         }
 
         for (key, value) in urlBundle {
-            if key == urlMovie.stringName {
+            if key == urlType.stringName {
                 return URL(string: value)
             }
         }
