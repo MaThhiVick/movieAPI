@@ -16,14 +16,7 @@ class MovieDetailViewModel {
     }
 
     func getMovieDetail(from movieId: Int) async -> MovieDetailModel? {
-        guard let data = await networkService.request(urlMovie: .detail(movieId)) else {
-            return nil
-        }
-
-        do {
-           return try JSONDecoder().decode(MovieDetailModel.self, from: data)
-        } catch {
-            return nil
-        }
+        let data: MovieDetailModel? = await networkService.request(urlMovie: .detail(movieId))
+        return data
     }
 }

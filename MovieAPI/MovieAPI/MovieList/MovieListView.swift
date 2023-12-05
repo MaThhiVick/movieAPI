@@ -61,12 +61,16 @@ struct MovieListView: View {
     @ViewBuilder
     func carouselSection() -> some View {
         Carousel(items: $topRatedList, title: "Top Rated") { movie in
-            MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
+            NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+                MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
+            }
         }
         .padding(.top, 32)
 
         Carousel(items: $popularList, title: "Popular") { movie in
-            MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
+            NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+                MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
+            }
         }
         .padding(.top, 32)
     }

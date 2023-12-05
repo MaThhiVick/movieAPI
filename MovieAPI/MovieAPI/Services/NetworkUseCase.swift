@@ -9,7 +9,7 @@ import Foundation
 import NetworkService
 
 protocol NetworkRequestUseCase {
-    func request(urlMovie: URLMoviesType) async -> Data?
+    func request<T: Decodable>(urlMovie: URLMoviesType) async -> T?
 }
 
 class NetworkUseCase: NetworkRequestUseCase {
@@ -21,16 +21,18 @@ class NetworkUseCase: NetworkRequestUseCase {
         self.networkService = NetworkService(headers: urlProvider.getNetworkHeaders())
     }
 
-    func request(urlMovie: URLMoviesType) async -> Data? {
-        var data: Data?
+    func request<T: Decodable>(urlMovie: URLMoviesType) async -> T? {
         do {
             guard let url = urlProvider.getURLMovie(from: urlMovie) else {
                 return nil
             }
-            data = try await self.networkService.request(url: url, httpMethod: .get)
+            let data = try await self.networkService.request(url: url, httpMethod: .get)
+            if T.self == Data.self {
+                return data as? T
+            }
+            return try JSONDecoder().decode(T.self, from: data)
         } catch {
             return nil
         }
-        return data
     }
 }

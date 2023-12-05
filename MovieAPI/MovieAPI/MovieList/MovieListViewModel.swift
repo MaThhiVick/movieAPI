@@ -14,21 +14,12 @@ class MovieListViewModel: ObservableObject {
         self.networkService = networkService
     }
 
-    func getMovie<T: Decodable>(_ urlMovie: URLMoviesType) async -> T? {
-        guard let data = await networkService.request(urlMovie: urlMovie) else {
+    func getMovie(_ urlMovie: URLMoviesType) async -> MovieResponseModel? {
+        guard let movieResponse: MovieResponseModel = await networkService.request(urlMovie: urlMovie) else {
             return nil
         }
 
-        do {
-            let decodedData = try JSONDecoder().decode(T.self, from: data)
-            if let decoded = decodedData as? MovieResponseModel {
-                return await insertImageData(movieResponse: decoded) as? T
-            }
-            return decodedData
-        } catch {
-            print(error)
-            return nil
-        }
+        return await insertImageData(movieResponse: movieResponse)
     }
 
     private func insertImageData(movieResponse: MovieResponseModel) async -> MovieResponseModel {
