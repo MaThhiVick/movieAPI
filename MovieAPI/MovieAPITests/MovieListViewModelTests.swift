@@ -9,18 +9,29 @@ import XCTest
 @testable import MovieAPI
 
 final class MovieListViewModelTests: XCTestCase {
-    var movieListViewModel: MovieListViewModel!
+    var sut: MovieListViewModel!
+    var networkService: MockNetworkUseCase!
 
     override func setUpWithError() throws {
-        movieListViewModel = MovieListViewModel(networkService: NetworkServiceMock())
+        networkService = MockNetworkUseCase()
+        sut = MovieListViewModel(networkService: networkService)
     }
 
     override func tearDownWithError() throws {
-        movieListViewModel = nil
+        sut = nil
+        networkService = nil
     }
 
-    func testGetMovieList_successfulRequest_ReturnMovieList() async throws {
-        let result = try await movieListViewModel.getMovieList()
-        XCTAssertEqual(result, mockMovieResponse.results)
+    func testGetMovie_successfulReturnFromNetwork_shouldReturnMovieResponse() async {
+        let movieResponse = await sut.getMovie(.list(.popular))
+
+        XCTAssertEqual(movieResponse!, MovieResponseModel.getMovieResponse())
+    }
+
+    func testGetMovie_receiveNilFromNetwork_shouldReturnNil() async {
+        networkService.shouldReturnNil = true
+        let movieResponse = await sut.getMovie(.list(.popular))
+
+        XCTAssertNil(movieResponse)
     }
 }

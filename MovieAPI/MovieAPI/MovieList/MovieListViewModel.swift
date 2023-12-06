@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MovieListViewModel: ObservableObject {
+final class MovieListViewModel: ObservableObject {
     let networkService: NetworkRequestUseCase
 
     init(networkService: NetworkRequestUseCase = NetworkUseCase()) {

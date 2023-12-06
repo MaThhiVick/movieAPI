@@ -12,7 +12,7 @@ protocol URLProvider {
     func getNetworkHeaders() -> [String: String]
 }
 
-class DefaultURLProvider: URLProvider {
+final class DefaultURLProvider: URLProvider {
     func getNetworkHeaders() -> [String: String] {
         guard let header = Bundle.main.object(forInfoDictionaryKey: "MovieHeader") as? Dictionary<String, String> else {
             return ["": ""]

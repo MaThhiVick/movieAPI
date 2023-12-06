@@ -12,7 +12,7 @@ protocol NetworkRequestUseCase {
     func request<T: Decodable>(urlMovie: URLMoviesType) async -> T?
 }
 
-class NetworkUseCase: NetworkRequestUseCase {
+final class NetworkUseCase: NetworkRequestUseCase {
     let urlProvider: URLProvider
     let networkService: NetworkRequest
 

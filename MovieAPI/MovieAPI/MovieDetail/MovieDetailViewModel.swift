@@ -8,7 +8,7 @@
 import Foundation
 import NetworkService
 
-class MovieDetailViewModel {
+final class MovieDetailViewModel {
     let networkService: NetworkRequestUseCase
 
     init(networkService: NetworkRequestUseCase = NetworkUseCase()) {
