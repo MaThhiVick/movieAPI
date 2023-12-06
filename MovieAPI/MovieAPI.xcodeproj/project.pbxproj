@@ -29,6 +29,7 @@
 		6083D9212B1E402900D041C8 /* URLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6083D9202B1E402900D041C8 /* URLProvider.swift */; };
 		6083D9232B1E404F00D041C8 /* NetworkUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6083D9222B1E404F00D041C8 /* NetworkUseCase.swift */; };
 		6083D9252B1E40CB00D041C8 /* URLMoviesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6083D9242B1E40CB00D041C8 /* URLMoviesType.swift */; };
+		6088D0BB2B20A6190082A93A /* NetworkUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088D0BA2B20A6190082A93A /* NetworkUseCaseTests.swift */; };
 		60EF2D212B1DB33D00348FAA /* NetworkService in Frameworks */ = {isa = PBXBuildFile; productRef = 60EF2D202B1DB33D00348FAA /* NetworkService */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		6083D9202B1E402900D041C8 /* URLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProvider.swift; sourceTree = "<group>"; };
 		6083D9222B1E404F00D041C8 /* NetworkUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUseCase.swift; sourceTree = "<group>"; };
 		6083D9242B1E40CB00D041C8 /* URLMoviesType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMoviesType.swift; sourceTree = "<group>"; };
+		6088D0BA2B20A6190082A93A /* NetworkUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			children = (
 				605B04702B207A5200C55ED4 /* Doubles */,
 				605B04732B207A5200C55ED4 /* MovieListViewModelTests.swift */,
+				6088D0BA2B20A6190082A93A /* NetworkUseCaseTests.swift */,
 			);
 			path = MovieAPITests;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6088D0BB2B20A6190082A93A /* NetworkUseCaseTests.swift in Sources */,
 				605B04742B207A5200C55ED4 /* MovieResponseModelMock.swift in Sources */,
 				6015A4502B2085DB00BE5C1F /* URLProviderMock.swift in Sources */,
 				605B04752B207A5200C55ED4 /* MockNetworkUseCase.swift in Sources */,
