@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct MovieListView: View {
-    let viewModel: MovieListViewModel
-    @State var upcomingList = [Movie]()
-    @State var topRatedList = [Movie]()
-    @State var popularList = [Movie]()
+    @ObservedObject var viewModel: MovieListViewModel
     @State private var index = 0
     private let frameHeight: CGFloat = 500
 
@@ -31,16 +28,7 @@ struct MovieListView: View {
         }
         .onAppear(perform: {
             Task {
-                if let result: MovieResponseModel = await viewModel.getMovie(.list(.upcoming)) {
-                    upcomingList = result.results
-                }
-                if let resultt: MovieResponseModel = await viewModel.getMovie(.list(.popular)) {
-                    popularList = resultt.results
-                }
-                if let resulttt: MovieResponseModel = await viewModel.getMovie(.list(.topRated)) {
-                    topRatedList = resulttt.results
-                }
-
+                await viewModel.getMovies()
             }
         })
     }
@@ -54,8 +42,8 @@ struct MovieListView: View {
                 .padding(.top, 32)
                 .padding(.leading, 8)
             TabView(selection: $index) {
-                ForEach(upcomingList, id: \.self) { movie in
-                    NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+                ForEach(viewModel.upcomingList, id: \.self) { movie in
+                    NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
                         MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .big)
                     }
                 }
@@ -68,15 +56,15 @@ struct MovieListView: View {
 
     @ViewBuilder
     func carouselSection() -> some View {
-        Carousel(items: $topRatedList, title: "Top Rated") { movie in
-            NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+        Carousel(items: $viewModel.topRatedList, title: "Top Rated") { movie in
+            NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
                 MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
             }
         }
         .padding(.top, 32)
 
-        Carousel(items: $popularList, title: "Popular") { movie in
-            NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+        Carousel(items: $viewModel.popularList, title: "Popular") { movie in
+            NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
                 MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
             }
         }

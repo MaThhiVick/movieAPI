@@ -22,7 +22,7 @@ enum URLMoviesType {
     }
 }
 
-enum MovieListPath: String {
+enum MovieListPath: String, CaseIterable {
     case upcoming
     case topRated = "top_rated"
     case popular
