@@ -34,7 +34,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "606E2FDA2B1B2A8D000D846D"
+               BlueprintIdentifier = "605B04662B2079FF00C55ED4"
                BuildableName = "MovieAPITests.xctest"
                BlueprintName = "MovieAPITests"
                ReferencedContainer = "container:MovieAPI.xcodeproj">

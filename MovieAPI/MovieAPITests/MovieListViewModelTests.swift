@@ -22,16 +22,19 @@ final class MovieListViewModelTests: XCTestCase {
         networkService = nil
     }
 
-    func testGetMovie_successfulReturnFromNetwork_shouldReturnMovieResponse() async {
-        let movieResponse = await sut.getMovie(.list(.popular))
-
-        XCTAssertEqual(movieResponse!, MovieResponseModel.getMovieResponse())
+    func testGetMovie_successfulReturnFromNetwork_shouldReturnMovieResponse() {
+        Task {
+            await sut.getMovies()
+            XCTAssertEqual(sut.upcomingList, MovieResponseModel.getMovieResponse().results)
+            XCTAssertFalse(sut.isLoading)
+        }
     }
 
-    func testGetMovie_receiveNilFromNetwork_shouldReturnNil() async {
+    func testGetMovie_receiveNilFromNetwork_shouldReturnNil() {
         networkService.shouldReturnNil = true
-        let movieResponse = await sut.getMovie(.list(.popular))
-
-        XCTAssertNil(movieResponse)
+        Task {
+            await sut.getMovies()
+        }
+        XCTAssertTrue(sut.upcomingList.isEmpty)
     }
 }

@@ -1,6 +1,7 @@
 import Foundation
 
 public protocol NetworkRequest {
+    init(headers: [String: String], urlSession: URLSession)
     func request(url: URL, httpMethod: HTTPMethod) async throws -> Data
 }
 
@@ -8,7 +9,7 @@ public class NetworkService: NetworkRequest {
     public let headers: [String: String]
     let urlSession: URLSession
 
-    public init(headers: [String: String], urlSession: URLSession = URLSession.shared) {
+    required public init(headers: [String: String], urlSession: URLSession = URLSession.shared) {
         self.headers = headers
         self.urlSession = urlSession
     }
