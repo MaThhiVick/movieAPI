@@ -21,7 +21,9 @@ final class NetworkUseCaseTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        urlProvider = nil
+        networkService = nil
+        sut = nil
     }
 
     func testRequest_whenURLisNil_shouldReturnNil() async {
