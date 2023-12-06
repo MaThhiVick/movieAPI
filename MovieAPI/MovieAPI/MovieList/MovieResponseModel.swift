@@ -14,8 +14,8 @@ struct Dates: Codable {
 }
 
 // MARK: - MovieResponse
-struct MovieResponse: Codable {
-    let dates: Dates
+struct MovieResponseModel: Codable {
+    let dates: Dates?
     let page: Int
     var results: [Movie]
     let totalPages: Int

@@ -9,7 +9,9 @@ import SwiftUI
 
 struct MovieListView: View {
     let viewModel: MovieListViewModel
-    @State var movieList = [Movie]()
+    @State var upcomingList = [Movie]()
+    @State var topRatedList = [Movie]()
+    @State var popularList = [Movie]()
     @State private var index = 0
     private let frameHeight: CGFloat = 500
 
@@ -20,42 +22,57 @@ struct MovieListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // virar outro componente view builder
                 ScrollView {
-                    TabView(selection: $index) {
-                        ForEach(movieList, id: \.self) { movie in
-                            NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
-                                MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .big)
-                            }
-                        }
-                    }
-                    .frame(height: frameHeight)
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-
-                    // virar um componente view builder
-                    Carousel(items: $movieList, title: "Top Rated") { movie in
-                        MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
-                    }
-                    .padding(.top, 32)
-
-                    Carousel(items: $movieList, title: "Popular") { movie in
-                        MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
-                    }
-                    .padding(.top, 32)
+                    upcomingMovieSection()
+                    carouselSection()
                 }
             }
             .navigationTitle("Up coming")
         }
         .onAppear(perform: {
-            // passar para a view model
             Task {
-                do {
-                    movieList = try await viewModel.getMovieList()
-                } catch {
-                    print(error)
+                if let result: MovieResponseModel = await viewModel.getMovie(.list(.upcoming)) {
+                    upcomingList = result.results
                 }
+                if let resultt: MovieResponseModel = await viewModel.getMovie(.list(.popular)) {
+                    popularList = resultt.results
+                }
+                if let resulttt: MovieResponseModel = await viewModel.getMovie(.list(.topRated)) {
+                    topRatedList = resulttt.results
+                }
+
             }
         })
+    }
+
+    @ViewBuilder
+    func upcomingMovieSection() -> some View {
+        TabView(selection: $index) {
+            ForEach(upcomingList, id: \.self) { movie in
+                NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+                    MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .big)
+                }
+            }
+        }
+        .frame(height: frameHeight)
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+    }
+
+    @ViewBuilder
+    func carouselSection() -> some View {
+        Carousel(items: $topRatedList, title: "Top Rated") { movie in
+            NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+                MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
+            }
+        }
+        .padding(.top, 32)
+
+        Carousel(items: $popularList, title: "Popular") { movie in
+            NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+                MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .small)
+            }
+        }
+        .padding(.top, 32)
     }
 }
 

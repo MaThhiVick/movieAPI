@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieDetailView: View {
     let movieInformation: Movie
     let movieDetailViewModel: MovieDetailViewModel
-    @State var movieDetail: MovieDetail?
+    @State var movieDetail: MovieDetailModel?
     @State var loading = true
 
     init(movieInformation: Movie, viewModel: MovieDetailViewModel) {
@@ -22,9 +22,8 @@ struct MovieDetailView: View {
         if loading == true {
             Text("loading")
                 .onAppear {
-                    // passar para a view model
                     Task {
-                        guard let result = await movieDetailViewModel.getMovieDetail(movieId: movieInformation.id) else {
+                        guard let result = await movieDetailViewModel.getMovieDetail(from: movieInformation.id) else {
                             return
                         }
                         movieDetail = result

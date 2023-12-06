@@ -9,10 +9,10 @@ import UIKit
 
 extension UIImage {
     func dataConvert(data: Data?) -> UIImage {
-        guard let data else {
+        guard let data, let uiImage = UIImage(data: data) else {
             return UIImage(systemName: "photo")!
         }
 
-        return UIImage(data: data, scale: 1.0)!
+        return uiImage
     }
 }
