@@ -8,15 +8,22 @@
 import Foundation
 import NetworkService
 
-final class MovieDetailViewModel {
+final class MovieDetailViewModel: ObservableObject {
     let networkService: NetworkRequestUseCase
+    let movieInformation: Movie
+    @Published var movieDetail: MovieDetailModel?
 
-    init(networkService: NetworkRequestUseCase = NetworkUseCase()) {
+    init(networkService: NetworkRequestUseCase = NetworkUseCase(),
+        movieInformation: Movie) {
         self.networkService = networkService
+        self.movieInformation = movieInformation
     }
 
-    func getMovieDetail(from movieId: Int) async -> MovieDetailModel? {
-        let data: MovieDetailModel? = await networkService.request(urlMovie: .detail(movieId))
-        return data
+    @MainActor
+    func getMovieDetail() async {
+        guard let result: MovieDetailModel = await networkService.request(urlMovie: .detail(movieInformation.id)) else {
+            return
+        }
+        movieDetail = result
     }
 }
