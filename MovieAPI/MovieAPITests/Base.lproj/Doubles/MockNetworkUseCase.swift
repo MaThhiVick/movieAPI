@@ -15,11 +15,6 @@ class MockNetworkUseCase: NetworkRequestUseCase {
         if shouldReturnNil {
             return nil
         }
-
-        if T.self == Data.self {
-            return try! JSONEncoder().encode("test") as? T
-        }
-
         return MovieResponseModel.getMovieResponse() as? T
     }
 }
