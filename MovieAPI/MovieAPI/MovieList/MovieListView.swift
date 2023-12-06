@@ -27,7 +27,7 @@ struct MovieListView: View {
                     carouselSection()
                 }
             }
-            .navigationTitle("Up coming")
+            .navigationTitle("")
         }
         .onAppear(perform: {
             Task {
@@ -47,15 +47,23 @@ struct MovieListView: View {
 
     @ViewBuilder
     func upcomingMovieSection() -> some View {
-        TabView(selection: $index) {
-            ForEach(upcomingList, id: \.self) { movie in
-                NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
-                    MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .big)
+        VStack(alignment: .leading, spacing: .none) {
+            Text("Upcoming")
+                .font(.largeTitle)
+                .bold()
+                .padding(.top, 32)
+                .padding(.leading, 8)
+            TabView(selection: $index) {
+                ForEach(upcomingList, id: \.self) { movie in
+                    NavigationLink(destination: MovieDetailView(movieInformation: movie, viewModel: MovieDetailViewModel())) {
+                        MovieCard(image: UIImage().dataConvert(data: movie.imageData), cardSize: .big)
+                    }
                 }
             }
+            .padding(.top, -12)
+            .frame(height: frameHeight)
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         }
-        .frame(height: frameHeight)
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
 
     @ViewBuilder
