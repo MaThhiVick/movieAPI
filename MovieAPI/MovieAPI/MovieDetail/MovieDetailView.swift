@@ -9,42 +9,37 @@ import SwiftUI
 
 struct MovieDetailView: View {
     @ObservedObject var viewModel: MovieDetailViewModel
-    @State var loading = true
 
     init(movieInformation: Movie) {
         self.viewModel = MovieDetailViewModel(movieInformation: movieInformation)
     }
 
     var body: some View {
-        if loading == true {
-            Text("loading")
-                .onAppear {
-                    Task {
-                        await viewModel.getMovieDetail()
-                        loading = false
-                    }
-                }
-        } else {
-            ScrollView( .vertical) {
+        ScrollView( .vertical) {
+            VStack(alignment: .leading, spacing: .none) {
+                MovieCard(image: UIImage().dataConvert(data: viewModel.movieInformation.imageData), cardSize: .big)
+                    .frame(height: 600)
+                    .ignoresSafeArea(edges: .top)
+
                 VStack(alignment: .leading, spacing: .none) {
-                    MovieCard(image: UIImage().dataConvert(data: viewModel.movieInformation.imageData), cardSize: .big)
-                        .frame(height: 600)
-                        .ignoresSafeArea(edges: .top)
+                    Text(viewModel.movieDetail?.originalTitle ?? "")
+                        .font(.title)
+                        .padding(.top, 8)
 
-                    VStack(alignment: .leading, spacing: .none) {
-                        Text(viewModel.movieDetail?.originalTitle ?? "")
-                            .font(.title)
-                            .padding(.top, 8)
+                    Text("\(viewModel.movieDetail?.runtime ?? 1)min")
+                        .font(.caption2)
+                        .foregroundStyle(.gray)
+                        .padding(.bottom, 12)
 
-                        Text("\(viewModel.movieDetail?.runtime ?? 1)min")
-                            .font(.caption2)
-                            .foregroundStyle(.gray)
-                            .padding(.bottom, 12)
-
-                        informationSection()
-                    }
-                    .padding(.leading, 8)
+                    informationSection()
                 }
+                .padding(.leading, 8)
+            }
+        } 
+        .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
+        .onAppear {
+            Task {
+                await viewModel.getMovieDetail()
             }
         }
     }

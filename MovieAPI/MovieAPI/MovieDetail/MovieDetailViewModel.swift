@@ -12,6 +12,7 @@ final class MovieDetailViewModel: ObservableObject {
     let networkService: NetworkRequestUseCase
     let movieInformation: Movie
     @Published var movieDetail: MovieDetailModel?
+    @Published var isLoading = true
 
     init(networkService: NetworkRequestUseCase = NetworkUseCase(),
         movieInformation: Movie) {
@@ -25,5 +26,6 @@ final class MovieDetailViewModel: ObservableObject {
             return
         }
         movieDetail = result
+        isLoading.toggle()
     }
 }

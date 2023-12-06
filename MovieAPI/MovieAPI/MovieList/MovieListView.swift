@@ -26,6 +26,7 @@ struct MovieListView: View {
             }
             .navigationTitle("")
         }
+        .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
         .onAppear(perform: {
             Task {
                 await viewModel.getMovies()
