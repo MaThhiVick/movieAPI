@@ -9,10 +9,10 @@ import Foundation
 
 final class MovieListViewModel: ObservableObject {
     let networkService: NetworkRequestUseCase
-
     @Published var upcomingList = [Movie]()
     @Published var topRatedList = [Movie]()
     @Published var popularList = [Movie]()
+    @Published var isLoading = true
 
     init(networkService: NetworkRequestUseCase = NetworkUseCase()) {
         self.networkService = networkService
@@ -21,20 +21,17 @@ final class MovieListViewModel: ObservableObject {
     @MainActor
     func getMovies() async {
         MovieListPath.allCases.forEach { path in
-            switch path {
-            case .upcoming:
-                Task {
+            Task {
+                switch path {
+                case .upcoming:
                     upcomingList = await getMovie(.list(.upcoming))
-                }
-            case .topRated:
-                Task {
+                case .topRated:
                     topRatedList = await getMovie(.list(.topRated))
-                }
-            case .popular:
-                Task {
+                case .popular:
                     popularList = await getMovie(.list(.popular))
                 }
             }
+            isLoading = false
         }
     }
 
@@ -43,7 +40,8 @@ final class MovieListViewModel: ObservableObject {
             return []
         }
 
-        return await insertImageData(movieResponse: movieResponse).results
+        let result = await insertImageData(movieResponse: movieResponse).results
+        return result
     }
 
     private func insertImageData(movieResponse: MovieResponseModel) async -> MovieResponseModel {
