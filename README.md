@@ -1,5 +1,3 @@
 # movieAPI
 
-Desenvolvi um aplicativo iOS que realiza chamadas de API para obter listas de filmes. Na página principal, exibo três diferentes listas de filmes. Também incluí uma página de detalhes do filme. Busquei criar um código genérico, escondi chaves e endereços de URL no info.plist e modularizei o código ao criar um serviço específico para as chamadas, colocado em um pacote separado(Swift Package Manager).
-
-Se tivesse mais tempo, incluiria mais testes unitários e implementaria testes de snapshots. Adicionalmente, teria adicionado botões nos carrosséis da página principal, direcionando os usuários para listas completas de filmes da categoria selecionada. Uma funcionalidade que gostaria de ter implementado é a capacidade de favoritar filmes, utilizando User Default para isso.
+I developed an iOS application that makes API calls to retrieve lists of movies. On the main page, I display three different movie lists. I also included a movie details page. I aimed to create generic code, hid keys and URL addresses in the info.plist, and modularized the code by creating a specific service for the calls, placed in a separate package (Swift Package Manager).
