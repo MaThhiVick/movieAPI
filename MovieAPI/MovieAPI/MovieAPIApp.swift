@@ -11,7 +11,11 @@ import SwiftUI
 struct MovieAPIApp: App {
     var body: some Scene {
         WindowGroup {
-            MovieListView(viewModel: MovieListViewModel())
+            if NSClassFromString("XCTestCase") != nil {
+                EmptyView()
+            } else {
+                MovieListView(viewModel: MovieListViewModel())
+            }
         }
     }
 }

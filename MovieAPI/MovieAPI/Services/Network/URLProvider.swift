@@ -13,9 +13,21 @@ protocol URLProvider {
 }
 
 final class DefaultURLProvider: URLProvider {
+    let movieHeader: String
+    let urlMovies: String
+    let bundle: Bundle
+
+    init(movieHeader: String = NetworkConstants.movieHeader,
+         urlMovies: String = NetworkConstants.urlMovies,
+         bundle: Bundle = Bundle.main) {
+        self.movieHeader = movieHeader
+        self.urlMovies = urlMovies
+        self.bundle = bundle
+    }
+
     func getNetworkHeaders() -> [String: String] {
-        guard let header = Bundle.main.object(forInfoDictionaryKey: "MovieHeader") as? Dictionary<String, String> else {
-            return ["": ""]
+        guard let header = bundle.object(forInfoDictionaryKey: movieHeader) as? Dictionary<String, String> else {
+            return [:]
         }
         return header
     }
@@ -57,7 +69,7 @@ final class DefaultURLProvider: URLProvider {
     }
 
     private func getDefaultURL(fromMovie urlType: URLMoviesType) -> URL? {
-        guard let urlBundle = Bundle.main.object(forInfoDictionaryKey: "URLMovies") as? Dictionary<String, String> else {
+        guard let urlBundle = bundle.object(forInfoDictionaryKey: "URLMovies") as? Dictionary<String, String> else {
             return nil
         }
 
