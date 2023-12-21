@@ -7,12 +7,11 @@
 
 import XCTest
 @testable import MovieAPI
-import NetworkService
 
 final class NetworkUseCaseTests: XCTestCase {
-    var sut: NetworkUseCase!
-    var urlProvider: URLProviderMock!
-    var networkService: NetworkServiceMock!
+   private var sut: NetworkUseCase!
+   private var urlProvider: URLProviderMock!
+   private var networkService: NetworkServiceMock!
 
     override func setUpWithError() throws {
         urlProvider = URLProviderMock()
@@ -21,7 +20,9 @@ final class NetworkUseCaseTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        urlProvider = nil
+        networkService = nil
+        sut = nil
     }
 
     func testRequest_whenURLisNil_shouldReturnNil() async {

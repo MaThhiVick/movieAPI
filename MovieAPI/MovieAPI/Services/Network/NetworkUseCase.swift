@@ -16,7 +16,8 @@ final class NetworkUseCase: NetworkRequestUseCase {
     let urlProvider: URLProvider
     let networkService: NetworkRequest
 
-    init(urlProvider: URLProvider = DefaultURLProvider(), networkService: NetworkRequest = NetworkService(headers: DefaultURLProvider().getNetworkHeaders())) {
+    init(urlProvider: URLProvider = DefaultURLProvider(),
+         networkService: NetworkRequest = NetworkService(headers: DefaultURLProvider().getNetworkHeaders())) {
         self.urlProvider = urlProvider
         self.networkService = networkService
     }
