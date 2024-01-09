@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import NetworkService
 
 final class MovieDetailViewModel: ObservableObject {
     let networkService: NetworkRequestUseCase
