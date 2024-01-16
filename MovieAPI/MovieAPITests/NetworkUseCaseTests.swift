@@ -43,6 +43,7 @@ final class NetworkUseCaseTests: XCTestCase {
         }
     }
 
+    // swiftlint:disable force_try
     func testRequest_askForDataType_shouldReturnData() async {
         guard let data: Data = await sut.request(urlMovie: .detail(0)) else {
             XCTFail("should return some data")
