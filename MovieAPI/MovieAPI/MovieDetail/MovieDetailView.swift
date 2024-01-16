@@ -55,5 +55,19 @@ struct MovieDetailView: View {
 }
 
 #Preview {
-    MovieDetailView(movieInformation: Movie(adult: false, backdropPath: "test", genreIDs: [], id: 1, originalLanguage: "en", originalTitle: "test movie", overview: "test test test test test test", popularity: 1, posterPath: "test", releaseDate: "test", title: "test", video: false, voteAverage: 1, voteCount: 1, imageData: nil))
+    MovieDetailView(movieInformation: Movie(adult: false,
+                                            backdropPath: "test",
+                                            genreIDs: [],
+                                            id: 1,
+                                            originalLanguage: "en",
+                                            originalTitle: "test movie",
+                                            overview: "test test test test test test",
+                                            popularity: 1,
+                                            posterPath: "test",
+                                            releaseDate: "test",
+                                            title: "test",
+                                            video: false,
+                                            voteAverage: 1,
+                                            voteCount: 1,
+                                            imageData: nil))
 }

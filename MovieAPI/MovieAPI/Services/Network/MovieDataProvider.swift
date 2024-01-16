@@ -23,14 +23,14 @@ class MovieDataProvider: MovieDataProviderProtocol {
             return []
         }
 
-        let result = await insertImageData(movieResponse: movieResponse).results
+        let result = await insertImageData(movieResponse: movieResponse).movies
         return result
     }
 
     private func insertImageData(movieResponse: MovieResponseModel) async -> MovieResponseModel {
         var result = movieResponse
-        for i in 0..<result.results.count {
-            result.results[i].imageData = await networkRequest.request(urlMovie: .image(result.results[i].posterPath))
+        for movie in 0..<result.movies.count {
+            result.movies[movie].imageData = await networkRequest.request(urlMovie: .image(result.movies[movie].posterPath))
         }
         return result
     }
