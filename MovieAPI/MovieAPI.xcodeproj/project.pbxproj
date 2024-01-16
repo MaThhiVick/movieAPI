@@ -34,7 +34,6 @@
 		6083D9212B1E402900D041C8 /* URLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6083D9202B1E402900D041C8 /* URLProvider.swift */; };
 		6083D9232B1E404F00D041C8 /* NetworkUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6083D9222B1E404F00D041C8 /* NetworkUseCase.swift */; };
 		6083D9252B1E40CB00D041C8 /* URLMoviesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6083D9242B1E40CB00D041C8 /* URLMoviesType.swift */; };
-		6088D0BB2B20A6190082A93A /* NetworkUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088D0BA2B20A6190082A93A /* NetworkUseCaseTests.swift */; };
 		60EF2D212B1DB33D00348FAA /* NetworkService in Frameworks */ = {isa = PBXBuildFile; productRef = 60EF2D202B1DB33D00348FAA /* NetworkService */; };
 /* End PBXBuildFile section */
 
@@ -79,7 +78,6 @@
 		6083D9202B1E402900D041C8 /* URLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProvider.swift; sourceTree = "<group>"; };
 		6083D9222B1E404F00D041C8 /* NetworkUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUseCase.swift; sourceTree = "<group>"; };
 		6083D9242B1E40CB00D041C8 /* URLMoviesType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMoviesType.swift; sourceTree = "<group>"; };
-		6088D0BA2B20A6190082A93A /* NetworkUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +251,7 @@
 				606E2FC72B1B2A8B000D846D /* Sources */,
 				606E2FC82B1B2A8B000D846D /* Frameworks */,
 				606E2FC92B1B2A8B000D846D /* Resources */,
+				60D37E9A2B4DFC2E00760076 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -325,6 +324,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		60D37E9A2B4DFC2E00760076 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint \nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		605B04632B2079FF00C55ED4 /* Sources */ = {

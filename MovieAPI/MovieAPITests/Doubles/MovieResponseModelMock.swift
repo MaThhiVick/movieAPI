@@ -10,7 +10,7 @@ import Foundation
 
 extension MovieResponseModel: Equatable {
     public static func == (lhs: MovieAPI.MovieResponseModel, rhs: MovieAPI.MovieResponseModel) -> Bool {
-        return lhs.results == rhs.results 
+        return lhs.movies == rhs.movies 
     }
 
     static func getMovieResponse() -> MovieResponseModel {

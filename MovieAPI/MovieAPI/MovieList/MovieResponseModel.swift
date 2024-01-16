@@ -17,12 +17,13 @@ struct Dates: Codable {
 struct MovieResponseModel: Codable {
     let dates: Dates?
     let page: Int
-    var results: [Movie]
+    var movies: [Movie]
     let totalPages: Int
     let totalResults: Int
 
     enum CodingKeys: String, CodingKey {
-        case dates, page, results
+        case dates, page 
+        case movies = "results"
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
