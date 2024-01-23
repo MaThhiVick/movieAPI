@@ -35,7 +35,8 @@ struct MovieDetailView: View {
                 }
                 .padding(.leading, 8)
             }
-        } 
+        }
+
         .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
         .onAppear {
             Task {
@@ -47,13 +48,39 @@ struct MovieDetailView: View {
     @ViewBuilder
     func informationSection() -> some View {
         InformationMovieCard(title: "Overview", information: viewModel.movieDetail?.overview ?? "")
-        InformationMovieCard(title: "Release date", information: viewModel.movieDetail?.releaseDate ?? "Not informed yet")
-        InformationMovieCard(title: "Average", information: "\(viewModel.movieDetail?.voteAverage ?? 0)")
-        InformationMovieCard(title: "Budget", information: "\(viewModel.movieDetail?.budget ?? 0)")
-        InformationMovieCard(title: "Popularity", information: "\(viewModel.movieDetail?.popularity ?? 0)")
+        InformationMovieCard(
+            title: "Release date",
+            information: viewModel.movieDetail?.releaseDate ?? "Not informed yet"
+        )
+        InformationMovieCard(
+            title: "Average",
+            information: "\(viewModel.movieDetail?.voteAverage ?? 0)"
+        )
+        InformationMovieCard(
+            title: "Budget",
+            information: "\(viewModel.movieDetail?.budget ?? 0)"
+        )
+        InformationMovieCard(
+            title: "Popularity",
+            information: "\(viewModel.movieDetail?.popularity ?? 0)"
+        )
     }
 }
 
 #Preview {
-    MovieDetailView(movieInformation: Movie(adult: false, backdropPath: "test", genreIDs: [], id: 1, originalLanguage: "en", originalTitle: "test movie", overview: "test test test test test test", popularity: 1, posterPath: "test", releaseDate: "test", title: "test", video: false, voteAverage: 1, voteCount: 1, imageData: nil))
+    MovieDetailView(movieInformation: Movie(adult: false,
+                                            backdropPath: "test",
+                                            genreIDs: [],
+                                            id: 1,
+                                            originalLanguage: "en",
+                                            originalTitle: "test movie",
+                                            overview: "test test test test test test",
+                                            popularity: 1,
+                                            posterPath: "test",
+                                            releaseDate: "test",
+                                            title: "test",
+                                            video: false,
+                                            voteAverage: 1,
+                                            voteCount: 1,
+                                            imageData: nil))
 }

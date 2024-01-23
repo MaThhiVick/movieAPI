@@ -10,14 +10,14 @@ import Foundation
 
 extension MovieResponseModel: Equatable {
     public static func == (lhs: MovieAPI.MovieResponseModel, rhs: MovieAPI.MovieResponseModel) -> Bool {
-        return lhs.results == rhs.results 
+        return lhs.movies == rhs.movies 
     }
 
     static func getMovieResponse() -> MovieResponseModel {
         return MovieResponseModel(
             dates: Dates(maximum: "2023-12-31", minimum: "2023-01-01"),
             page: 1,
-            results: [
+            movies: [
                 Movie(
                     adult: false,
                     backdropPath: "/example_backdrop_path.jpg",

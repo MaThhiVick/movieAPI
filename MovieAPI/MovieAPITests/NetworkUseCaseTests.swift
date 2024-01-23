@@ -7,12 +7,11 @@
 
 import XCTest
 @testable import MovieAPI
-import NetworkService
 
 final class NetworkUseCaseTests: XCTestCase {
-    var sut: NetworkUseCase!
-    var urlProvider: URLProviderMock!
-    var networkService: NetworkServiceMock!
+   private var sut: NetworkUseCase!
+   private var urlProvider: URLProviderMock!
+   private var networkService: NetworkServiceMock!
 
     override func setUpWithError() throws {
         urlProvider = URLProviderMock()
@@ -44,6 +43,7 @@ final class NetworkUseCaseTests: XCTestCase {
         }
     }
 
+    // swiftlint:disable force_try
     func testRequest_askForDataType_shouldReturnData() async {
         guard let data: Data = await sut.request(urlMovie: .detail(0)) else {
             XCTFail("should return some data")

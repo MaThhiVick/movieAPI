@@ -29,7 +29,7 @@ struct MovieListView: View {
         .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
         .onAppear(perform: {
             Task {
-                await viewModel.getMovies()
+                await viewModel.getAllListMovies()
             }
         })
     }
