@@ -26,7 +26,7 @@ final class DefaultURLProvider: URLProvider {
     }
 
     func getNetworkHeaders() -> [String: String] {
-        guard let header = bundle.object(forInfoDictionaryKey: movieHeader) as? Dictionary<String, String> else {
+        guard let header = bundle.object(forInfoDictionaryKey: movieHeader) as? [String: String] else {
             return [:]
         }
         return header
@@ -69,14 +69,12 @@ final class DefaultURLProvider: URLProvider {
     }
 
     private func getDefaultURL(fromMovie urlType: URLMoviesType) -> URL? {
-        guard let urlBundle = bundle.object(forInfoDictionaryKey: "URLMovies") as? Dictionary<String, String> else {
+        guard let urlBundle = bundle.object(forInfoDictionaryKey: "URLMovies") as? [String: String] else {
             return nil
         }
 
-        for (key, value) in urlBundle {
-            if key == urlType.stringName {
-                return URL(string: value)
-            }
+        for (key, value) in urlBundle where key == urlType.stringName {
+            return URL(string: value)
         }
         return nil
     }

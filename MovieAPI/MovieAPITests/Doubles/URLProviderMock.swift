@@ -17,8 +17,8 @@ final class URLProviderMock: URLProvider {
         }
         return URL(string: "testURL")
     }
-    
-    func getNetworkHeaders() -> [String : String] {
+
+    func getNetworkHeaders() -> [String: String] {
         ["test": "test"]
     }
 }

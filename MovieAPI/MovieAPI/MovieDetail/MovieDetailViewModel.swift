@@ -13,8 +13,10 @@ final class MovieDetailViewModel: ObservableObject {
     @Published var movieDetail: MovieDetailModel?
     @Published var isLoading = true
 
-    init(networkService: NetworkRequestUseCase = NetworkUseCase(),
-        movieInformation: Movie) {
+    init(
+        networkService: NetworkRequestUseCase = NetworkUseCase(),
+        movieInformation: Movie
+    ) {
         self.networkService = networkService
         self.movieInformation = movieInformation
     }
