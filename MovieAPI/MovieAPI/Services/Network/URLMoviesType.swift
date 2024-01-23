@@ -12,9 +12,9 @@ enum URLMoviesType {
 
     var stringName: String {
         switch self {
-        case .detail(_):
+        case .detail:
             "movieDetail"
-        case .image(_):
+        case .image:
             "movieImage"
         default:
             "movieList"

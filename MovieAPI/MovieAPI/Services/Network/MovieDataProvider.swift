@@ -30,7 +30,11 @@ class MovieDataProvider: MovieDataProviderProtocol {
     private func insertImageData(movieResponse: MovieResponseModel) async -> MovieResponseModel {
         var result = movieResponse
         for movie in 0..<result.movies.count {
-            result.movies[movie].imageData = await networkRequest.request(urlMovie: .image(result.movies[movie].posterPath))
+            result.movies[movie].imageData = await networkRequest.request(
+                urlMovie: .image(
+                    result.movies[movie].posterPath
+                )
+            )
         }
         return result
     }
