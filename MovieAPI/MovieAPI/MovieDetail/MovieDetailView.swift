@@ -35,7 +35,8 @@ struct MovieDetailView: View {
                 }
                 .padding(.leading, 8)
             }
-        } 
+        }
+
         .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
         .onAppear {
             Task {
@@ -47,10 +48,22 @@ struct MovieDetailView: View {
     @ViewBuilder
     func informationSection() -> some View {
         InformationMovieCard(title: "Overview", information: viewModel.movieDetail?.overview ?? "")
-        InformationMovieCard(title: "Release date", information: viewModel.movieDetail?.releaseDate ?? "Not informed yet")
-        InformationMovieCard(title: "Average", information: "\(viewModel.movieDetail?.voteAverage ?? 0)")
-        InformationMovieCard(title: "Budget", information: "\(viewModel.movieDetail?.budget ?? 0)")
-        InformationMovieCard(title: "Popularity", information: "\(viewModel.movieDetail?.popularity ?? 0)")
+        InformationMovieCard(
+            title: "Release date",
+            information: viewModel.movieDetail?.releaseDate ?? "Not informed yet"
+        )
+        InformationMovieCard(
+            title: "Average",
+            information: "\(viewModel.movieDetail?.voteAverage ?? 0)"
+        )
+        InformationMovieCard(
+            title: "Budget",
+            information: "\(viewModel.movieDetail?.budget ?? 0)"
+        )
+        InformationMovieCard(
+            title: "Popularity",
+            information: "\(viewModel.movieDetail?.popularity ?? 0)"
+        )
     }
 }
 

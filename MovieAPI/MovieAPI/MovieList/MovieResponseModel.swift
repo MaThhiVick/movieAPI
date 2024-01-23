@@ -22,7 +22,7 @@ struct MovieResponseModel: Codable {
     let totalResults: Int
 
     enum CodingKeys: String, CodingKey {
-        case dates, page 
+        case dates, page
         case movies = "results"
         case totalPages = "total_pages"
         case totalResults = "total_results"

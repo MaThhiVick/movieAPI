@@ -17,7 +17,7 @@ extension MovieResponseModel: Equatable {
         return MovieResponseModel(
             dates: Dates(maximum: "2023-12-31", minimum: "2023-01-01"),
             page: 1,
-            results: [
+            movies: [
                 Movie(
                     adult: false,
                     backdropPath: "/example_backdrop_path.jpg",
