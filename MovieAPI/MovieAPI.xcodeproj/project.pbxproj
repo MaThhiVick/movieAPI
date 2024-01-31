@@ -36,6 +36,7 @@
 		6083D9232B1E404F00D041C8 /* NetworkUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6083D9222B1E404F00D041C8 /* NetworkUseCase.swift */; };
 		6083D9252B1E40CB00D041C8 /* URLMoviesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6083D9242B1E40CB00D041C8 /* URLMoviesType.swift */; };
 		608CFEB22B4D791300ACE95D /* UserDefault in Frameworks */ = {isa = PBXBuildFile; productRef = 608CFEB12B4D791300ACE95D /* UserDefault */; };
+		60AB6E7F2B6AE0E100396C5D /* config.yml in Resources */ = {isa = PBXBuildFile; fileRef = 60AB6E7E2B6AE0E100396C5D /* config.yml */; };
 		60EF2D212B1DB33D00348FAA /* NetworkService in Frameworks */ = {isa = PBXBuildFile; productRef = 60EF2D202B1DB33D00348FAA /* NetworkService */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		6083D9202B1E402900D041C8 /* URLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProvider.swift; sourceTree = "<group>"; };
 		6083D9222B1E404F00D041C8 /* NetworkUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUseCase.swift; sourceTree = "<group>"; };
 		6083D9242B1E40CB00D041C8 /* URLMoviesType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMoviesType.swift; sourceTree = "<group>"; };
+		60AB6E7E2B6AE0E100396C5D /* config.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = config.yml; path = ../.circleci/config.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		606E2FC22B1B2A8B000D846D = {
 			isa = PBXGroup;
 			children = (
+				60AB6E7E2B6AE0E100396C5D /* config.yml */,
 				606E2FCD2B1B2A8B000D846D /* MovieAPI */,
 				605B04682B2079FF00C55ED4 /* MovieAPITests */,
 				606E2FCC2B1B2A8B000D846D /* Products */,
@@ -325,6 +328,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60AB6E7F2B6AE0E100396C5D /* config.yml in Resources */,
 				605CD6CB2B6050C000C3A918 /* .swiftlint.yml in Resources */,
 				606E2FD62B1B2A8D000D846D /* Preview Assets.xcassets in Resources */,
 				606E2FD32B1B2A8D000D846D /* Assets.xcassets in Resources */,
