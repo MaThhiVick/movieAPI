@@ -7,6 +7,9 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: Install Fastlane
+          command: gem install fastlane
       - run: fastlane scan --project "MovieAPI/MovieAPI.xcodeproj" --scheme 'MovieAPI'
       - store_test_results:
           path: test_output
