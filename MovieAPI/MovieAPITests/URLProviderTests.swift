@@ -44,7 +44,7 @@ final class URLProviderTests: XCTestCase {
 
     func testGetNetworkHeaders_whenSuccessDictionary_shouldReturnDictionary() {
         let result = sut.getNetworkHeaders()
-        XCTAssertEqual(result, ["test": "test"])
+        XCTAssertEqual(result, ["test": "teste"])
     }
 
     func testGetURLMovie_whenWrongKeyFromBundle_shouldReturNil() {
