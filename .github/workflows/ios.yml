@@ -1,26 +1,29 @@
-version: 2.1
+name: Testing
+
+on:
+  pull_request
 
 jobs:
-  build:
-    macos:
-      xcode: 15.0
+  test:
+    name: Testing Swift Package and iOS App
+    runs-on: macOS-latest
 
     steps:
-      - checkout
-      - run:
-          name: Install Fastlane
-          command: gem install fastlane
-      - run: fastlane scan --project "MovieAPI/MovieAPI.xcodeproj" --scheme 'MovieAPI'
-      - store_test_results:
-          path: test_output
-      - store_artifacts:
-          path: test_output
-          destination: scan-output
-      - run:
-          name: Cleanup Gems
-          command: gem cleanup
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-workflows:
-  tests:
-    jobs:
-      - build
+      - name: Xcode Setup
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '14.1'
+
+      - name: Build with proper path
+        run: |
+          xcodebuild build -resolvePackageDependencies -workspace MovieAPI/MovieAPI.xcworkspace -scheme MovieAPI clean build -sdk iphoneos CODE_SIGNING_ALLOWED=No
+
+      - name: Run tests with proper path and destination
+        id: xcodebuild
+        run: |
+            xcodebuild build -resolvePackageDependencies -workspace MovieAPI/MovieAPI.xcworkspace -scheme MovieAPI clean build -sdk iphoneos CODE_SIGNING_ALLOWED=No
+
+
